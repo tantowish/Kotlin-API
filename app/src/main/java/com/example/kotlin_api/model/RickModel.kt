@@ -14,4 +14,6 @@ data class RickData(
     val `name`: String,
     @SerializedName("species")
     val `species`: String,
+    @SerializedName("image")
+    val `image`: String,
 )

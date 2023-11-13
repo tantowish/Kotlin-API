@@ -22,7 +22,8 @@ class MainActivity : AppCompatActivity() {
 
         val client = ApiClient.getInstance()
         val response = client.getRick()
-        val rickNames = ArrayList<String>()
+        val rickCharacters = mutableListOf<Character>()
+
 
         response.enqueue(object: Callback<RickModel>{
             override fun onResponse(call: Call<RickModel>, response: Response<RickModel>) {
@@ -31,18 +32,22 @@ class MainActivity : AppCompatActivity() {
 
                 if(datas.isNotEmpty()){
                     for (i in datas){
-                        rickNames.add(i.name)
+                        val character = Character(i.name, i.species, i.image)
+                        rickCharacters.add(character)
                     }
                 }
 
-                val listAdapter = ArrayAdapter(
-                    this@MainActivity,
-                    android.R.layout.simple_list_item_1,
-                    rickNames
-                )
+
+//                )
+                val CharacterAdapter = CharaAdapter(rickCharacters) { clickedCharacter ->
+//                    val intent = Intent(requireContext(), MovieDetail::class.java)
+//                    intent.putExtra("movieData", clickedMovie)
+//                    startActivity(intent)
+                    Toast.makeText(this@MainActivity, "Clicked: ${clickedCharacter.name}", Toast.LENGTH_SHORT).show()
+                }
 
 
-                binding.lvName.adapter = listAdapter
+                binding.rvName.adapter = CharacterAdapter
             }
 
             override fun onFailure(call: Call<RickModel>, t: Throwable) {
