@@ -1,5 +1,6 @@
 package com.example.kotlin_api
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -37,12 +38,10 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-
-//                )
                 val CharacterAdapter = CharaAdapter(rickCharacters) { clickedCharacter ->
-//                    val intent = Intent(requireContext(), MovieDetail::class.java)
-//                    intent.putExtra("movieData", clickedMovie)
-//                    startActivity(intent)
+                    val intent = Intent(this@MainActivity, Profile::class.java)
+                    intent.putExtra("charaData", clickedCharacter)
+                    startActivity(intent)
                     Toast.makeText(this@MainActivity, "Clicked: ${clickedCharacter.name}", Toast.LENGTH_SHORT).show()
                 }
 
